@@ -10,7 +10,7 @@ def getinfo():
   page = requests.get(url)
 
   #Parse the page
-  if page.status_code is 200:    
+  if page.status_code == 200:    
     #Parse the page to variable soup
     soup = BeautifulSoup(page.text, "xml")  
 
