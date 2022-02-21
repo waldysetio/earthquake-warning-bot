@@ -1,15 +1,22 @@
-import os
-import telebot
+def bot():
 
-API_KEY = os.getenv("API_KEY")
-bot = telebot.TeleBot(API_KEY)
+  import os
+  import telebot
 
-@bot.message_handler(commands=["start"])
-def greet(message):
+  API_KEY = os.getenv("API_KEY")
+  bot = telebot.TeleBot(API_KEY)
+
+  @bot.message_handler(commands=["start", "Start"])
+  def greet(message):
     bot.reply_to(message, "Welcome to Earthquake Warning Bot")
     
-@bot.message_handler(commands=["hello"])
-def hello(message):
+  @bot.message_handler(commands=["hello"])
+  def hello(message):
     bot.send_message(message.chat.id, "Hello")
 
-bot.polling()
+  @bot.message_handler(commands=["info"])
+  def hello(message):
+    getinfor = getinfo()
+    bot.send_message(message.chat.id, getinfor)
+  
+  bot.polling()
