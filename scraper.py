@@ -1,11 +1,13 @@
-#Import packages
-from bs4 import BeautifulSoup
-import requests
-
-#Set the url
-url = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.xml"
-
 def getinfo():
+  """Scrape BMKG website and return earthquake information"""
+
+  #Import packages
+  import requests
+  from bs4 import BeautifulSoup
+
+  #Set the url
+  url = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.xml"
+  
   #Get the webpage
   page = requests.get(url)
 
@@ -20,12 +22,15 @@ def getinfo():
 
     #Get the information from the parsed page
     print("Telah terjadi gempa dengan keterangan sebagai berikut: ")
+    report = ""
+    new_line = '\n'
     for word in info:
       data = soup.find(word)
       data = data.text
-      print(word.capitalize(), ":", data.capitalize())
+      parsed = f"{word.capitalize()} : {data.capitalize()}"      
+      report = report + parsed
 
   else:
     print("The source can't be accessed.")
 
-getinfo()
+  return report
